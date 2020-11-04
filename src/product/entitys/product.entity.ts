@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { ARRAY } from 'sequelize';
-import { DataTypes, DOUBLE } from 'sequelize';
+import {  DOUBLE } from 'sequelize';
 import { Table, Column, Model, AutoIncrement, PrimaryKey } from 'sequelize-typescript';
 
 @Table
@@ -33,3 +32,4 @@ export class Products extends Model<Products> {
   detail: string;
 
 }
+
