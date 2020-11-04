@@ -11,9 +11,8 @@ export class ProductService {
         return this.productsRepository.findAll();
     }
 
-    async addProduct(addProduct:addProductDTO){
+    async addProduct(addProduct:any){
         return this.productsRepository.create(addProduct);
-
     }
 
 }
