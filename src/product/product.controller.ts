@@ -15,7 +15,7 @@ export class ProductController {
 
     @Post('/addproduct')
     addProduct(@Body() addProductDTO:addProductDTO){
-        return " 5 5 5 "
+        return this.productService.addProduct(addProductDTO);
     }
 
 }
