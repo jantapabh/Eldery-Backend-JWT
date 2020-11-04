@@ -13,7 +13,7 @@ export class UploadImage extends Model<UploadImage>{
     name: string;
 
     @Column
-    filedname: string;
+    fieldname: string;
 
     @Column
     originalname: string;

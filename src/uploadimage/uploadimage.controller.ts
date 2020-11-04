@@ -10,6 +10,6 @@ export class UploadimageController {
     @Post('upload')
     @UseInterceptors(FilesInterceptor('file'))
     async uploadFile(@UploadedFiles() file) {
-        return file;
+        return this.uploadimageService.addImages(file);
     }
 }
