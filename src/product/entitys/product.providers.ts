@@ -1,6 +1,6 @@
 import { Products } from './product.entity';
 
-export const catsProviders = [
+export const productsProviders = [
   {
     provide: 'PRODUCTS_REPOSITORY',
     useValue: Products ,
