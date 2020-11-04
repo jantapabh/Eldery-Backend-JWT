@@ -1,5 +1,5 @@
 import {Sequelize} from 'sequelize-typescript';
-//= import { Cat } from '../cats/cat.entity';
+import { Products } from '../product/entitys/product.entity';
 
 export const databaseProviders = [
     {
@@ -13,7 +13,7 @@ export const databaseProviders = [
           password: '1234',
           database: 'cryptopg',
         });
-        sequelize.addModels([]);
+        sequelize.addModels([Products]);
         await sequelize.sync();
         return sequelize;
       },
