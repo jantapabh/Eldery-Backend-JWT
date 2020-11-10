@@ -33,11 +33,11 @@ export class UsersService {
   async create_user(user: any) {
     let result = [];
     if (user.username.length < 4) {
-      result.push({ message_username: 'username must be longer than 4' })
+      result.push({ Alert_username: 'username must be longer than 4' })
       // return { message: 'username must be longer than 4' };
     }
     if (user.password.length < 6) {
-      result.push({ message: 'password must be longer than 6' })
+      result.push({ Alert_password: 'password must be longer than 6' })
       // return { message: 'password must be longer than 6' };
     }
     return result;
