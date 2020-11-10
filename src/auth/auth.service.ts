@@ -6,8 +6,14 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
+
+  // 1. ทำหน้าที่สมัครแล้วเพิ่มลงใน Database 
+  async signup(user:any){
+    const  result = await this.usersService.create_user(user); // ส่งไปทำในที่ User
+    return result;
+  }
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(username);
@@ -26,5 +32,5 @@ export class AuthService {
   }
 
 
-  async
+  
 }

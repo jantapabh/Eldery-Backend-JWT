@@ -29,4 +29,20 @@ export class UsersService {
   async findOne(username: string): Promise<User | undefined> {
     return this.users.find(user => user.username === username);
   }
+
+  async create_user(user: any) {
+    let result = [];
+    if (user.username.length < 4) {
+      result.push({ message_username: 'username must be longer than 4' })
+      // return { message: 'username must be longer than 4' };
+    }
+    if (user.password.length < 6) {
+      result.push({ message: 'password must be longer than 6' })
+      // return { message: 'password must be longer than 6' };
+    }
+    return result;
+
+  }
+
+
 }
