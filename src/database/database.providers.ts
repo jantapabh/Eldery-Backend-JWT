@@ -13,7 +13,7 @@ export const databaseProviders = [
         port: 3306,
         username: 'root',
         password: '1234',
-        database: 'cryptopg',
+        database: 'cpg_database',
       });
       sequelize.addModels([Products, UploadImage , Users]);
       await sequelize.sync();

@@ -10,10 +10,10 @@ export class Products extends Model<Products> {
   @Column
   p_id:number;
 
-  @Column
+  @Column  
   name: string;
 
-  @Column({type:DOUBLE})
+  @Column({type:DOUBLE })
   price: number;
 
   @Column
