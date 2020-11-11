@@ -8,7 +8,12 @@ export class UsersController {
 
     @Get('/:username')
     getUserByUsername(@Param('username') username:string){
-        return "5555"
+        return this.usersService.find_one({type:'username'},username);
+    }
+
+    @Get('/:email')
+    getUserByEmail(@Param('email') email:string){
+        return this.usersService.find_one({type:'email'},email);
     }
 
 }

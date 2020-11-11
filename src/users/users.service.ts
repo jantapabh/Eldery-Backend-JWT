@@ -31,12 +31,12 @@ export class UsersService {
     return this.users.find(user => user.username === username);
   }
 
-  async find_one(type:string , data:string){
+  async find_one(datatype:any , data:string){
     let result = await this.userRepository.scope({}).findOne({
-      where:{[`${type}`]:data},
+      where:{[`${datatype.type}`]:data},
       raw:true
     });
-    return result;
+    return datatype.type+data;
   }
 
   async create_user(user: any) {
