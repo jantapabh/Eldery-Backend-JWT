@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Users } from './entity/user.entity';
+import * as bcrypt from  'bcryptjs';
 
 export type User = any;
 
@@ -7,30 +8,9 @@ export type User = any;
 export class UsersService {
   private readonly users: User[];
 
-  constructor(@Inject('USERS_REPOSITORY') private readonly userRepository:typeof Users) {
-    this.users = [
-      {
-        userId: 1,
-        username: 'john',
-        password: 'changeme',
-      },
-      {
-        userId: 2,
-        username: 'chris',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        username: 'maria',
-        password: 'guess',
-      },
-    ];
-  }
+  constructor(@Inject('USERS_REPOSITORY') private readonly userRepository:typeof Users) {}
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
-  }
-
+  //*
   async find_one(datatype:string, data:string){
     let result = await this.userRepository.scope({}).findOne({
       where:{[`${datatype}`]:data},
@@ -39,6 +19,12 @@ export class UsersService {
     return result;
   }
 
+  async uncoder_password(password:string){
+    var salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password,salt);
+  }
+  
+ //*
   async create_user(user: any) {
     let result = [];
     // - - - Start - - - เงื่อนไขเมื่อกรอกข้อมูลไม่ครบ
@@ -58,11 +44,12 @@ export class UsersService {
       return result;
     }
     // - - - End - - - เงื่อนไขเมื่อกรอกข้อมูลไม่ครบ
+    user.password =await this.uncoder_password(user.password);
     user.role=0;
     await this.userRepository.create(user);
     return { message: 'create user succeed' };
 
   }
-
+  
 
 }
