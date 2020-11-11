@@ -34,11 +34,9 @@ export class UsersService {
     let result = [];
     if (user.username.length < 4) {
       result.push({ Alert_username: 'username must be longer than 4' })
-      // return { message: 'username must be longer than 4' };
     }
     if (user.password.length < 6) {
       result.push({ Alert_password: 'password must be longer than 6' })
-      // return { message: 'password must be longer than 6' };
     }
     return result;
 
