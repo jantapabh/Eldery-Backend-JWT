@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Users } from './entity/user.entity';
 
 export type User = any;
 
@@ -6,7 +7,7 @@ export type User = any;
 export class UsersService {
   private readonly users: User[];
 
-  constructor() {
+  constructor(@Inject('USERS_REPOSITORY') private readonly userRepository:typeof Users) {
     this.users = [
       {
         userId: 1,
@@ -30,6 +31,14 @@ export class UsersService {
     return this.users.find(user => user.username === username);
   }
 
+  async find_one(type:string , data:string){
+    let result = await this.userRepository.scope({}).findOne({
+      where:{[`${type}`]:data},
+      raw:true
+    });
+    return result;
+  }
+
   async create_user(user: any) {
     let result = [];
     if (user.username.length < 4) {
@@ -40,6 +49,7 @@ export class UsersService {
       result.push({ Alert_password: 'password must be longer than 6' })
       // return { message: 'password must be longer than 6' };
     }
+
     return result;
 
   }
