@@ -15,10 +15,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(request: Request,username: string, password: string): Promise<any> {
     const contextId = ContextIdFactory.getByRequest(request);
     const authService = await this.moduleRef.resolve(AuthService, contextId);
-    const user = await this.authService.validateUser(username, password);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
   }
+   
 }
