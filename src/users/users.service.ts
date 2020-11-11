@@ -31,24 +31,36 @@ export class UsersService {
     return this.users.find(user => user.username === username);
   }
 
-  async find_one(datatype:any , data:string){
+  async find_one(datatype:string, data:string){
     let result = await this.userRepository.scope({}).findOne({
-      where:{[`${datatype.type}`]:data},
+      where:{[`${datatype}`]:data},
       raw:true
     });
-    return datatype.type+data;
+    return result;
   }
 
   async create_user(user: any) {
     let result = [];
+    // - - - Start - - - เงื่อนไขเมื่อกรอกข้อมูลไม่ครบ
     if (user.username.length < 4) {
-      result.push({ Alert_username: 'username must be longer than 4' })
+      result.push({ alert_username: 'username must be longer than 4' })
     }
     if (user.password.length < 6) {
-      result.push({ Alert_password: 'password must be longer than 6' })
+      result.push({ alert_password: 'password must be longer than 6' })
     }
-
-    return result;
+    if(await this.find_one('username',user.username)){
+      result.push({alert_h_username:'already have this username'}) // h ย่อมาจาก Have แสดงว่ามี username นี้แล้ว
+    }
+    if(await this.find_one('email',user.email)){
+      result.push({alert_h_email:'already have this email'}) // h ย่อมาจาก Have แสดงว่ามี email นี้แล้ว
+    }
+    if(result.length > 0){
+      return result;
+    }
+    // - - - End - - - เงื่อนไขเมื่อกรอกข้อมูลไม่ครบ
+    user.role=0;
+    await this.userRepository.create(user);
+    return { message: 'create user succeed' };
 
   }
 

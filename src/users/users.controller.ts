@@ -6,14 +6,14 @@ export class UsersController {
 
     constructor(private readonly usersService : UsersService){}
 
-    @Get('/:username')
+    @Get('username/:username')
     getUserByUsername(@Param('username') username:string){
-        return this.usersService.find_one({type:'username'},username);
+        return this.usersService.find_one('username',username);
     }
 
-    @Get('/:email')
+    @Get('email/:email')
     getUserByEmail(@Param('email') email:string){
-        return this.usersService.find_one({type:'email'},email);
+        return this.usersService.find_one('email',email);
     }
 
 }
