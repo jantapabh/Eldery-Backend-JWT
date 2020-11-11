@@ -9,6 +9,7 @@ import {
     HasMany,
     ForeignKey,
     BelongsTo,
+    DataType,
 } from 'sequelize-typescript';
 @Table({
     timestamps: true,
@@ -61,3 +62,26 @@ export class Users extends Model<Users> {
     role: number;
 
 }
+
+
+@Table({
+    timestamps: false,
+    paranoid: false,
+  })
+export class Tokens extends Model<Tokens> {
+    @AllowNull(false)
+    @PrimaryKey
+    @AutoIncrement
+    @Column
+    token_id: number;
+  
+    @AllowNull(false)
+    @Column(DataType.STRING(2500))
+    token: string;
+  
+    @AllowNull(false)
+    @ForeignKey(() => Users)
+    @Column
+    user_id: number;
+  }
+  
