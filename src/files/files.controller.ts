@@ -23,7 +23,7 @@ export class FilesController {
     const response = {
       originalname: file.originalname,
       filename: file.filename,
-    };
+    }; 
     return {
       status: HttpStatus.OK,
       message: 'Image uploaded successfully!',
